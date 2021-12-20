@@ -136,7 +136,7 @@ else:
 
 
 #ссылки на бомберы
-    # https://github.com/K1ngSoul/Parad1seBomb
-
+    #
+    # https://github.com/Snekyy/bombila.git
 
 

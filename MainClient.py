@@ -3,8 +3,8 @@ import os
 import getpass
 import sys
 from threading import Thread
-import threading
 import time
+import keyboard
 from colorama import Fore, Back
 
 clearmode = '0'
@@ -41,7 +41,7 @@ def main():
     os.chdir(UP)
     print('ver 0.1\n')
     #стоит создать переменные кода региона, номер без региона и полный номер(разные бомберы юзают разный формат ввода номера)
-    RC = input(Fore.BLACK + Back.GREEN + 'Введите код Региона() -->' + Back.RESET + Fore.RESET)
+    RC = input(Fore.BLACK + Back.GREEN + 'Введите код Региона без +() -->' + Back.RESET + Fore.RESET)
     num = input(Fore.BLACK + Back.GREEN + 'Введите номер() -->' + Back.RESET + Fore.RESET)
 
 def logo():
@@ -57,8 +57,11 @@ def logo():
     print(" ░          ░ ░         ░    ░         ░  ░   ░        ░ ░          ░  ░ ░     ░  ░         ░          ")
     print("      ░                           ░                    ░                                               ")
 
-num = 0
+num = 0 # номер без кода региона
 RC = 0 #Код региона для некоторых видов бомбера
+fullnum = str(num) + str(RC)
+
+
 logo()
 print(Fore.RED + 'Download Mode' + Fore.RESET)
 time.sleep(2)
@@ -75,7 +78,7 @@ if os.path.isdir(UP):
         print('выходим из клиента')
         time.sleep(2)
         exit()
-    if num == 'debug':
+    if num == 'debug': #Дебаг режим, предпологается что он будет выводить вводимые пользователем данные и не очищать консоль, clear -x не удаляет прошлые сообщения
         clearmode = 'clear -x'
         print(Back.RED + 'Аварийный Режим' + Back.RESET)
     
@@ -101,14 +104,26 @@ if os.path.isdir(UP):
         print(Back.YELLOW + 'Я надеюсь ты понимаешь, что сейчас делаешь.' + Back.RESET + Fore.RESET)
 
         def tbomb():
-        #Функция запуска tbomb
-            os.chdir(UP + 'tbomb')
+            #Функция запуска tbomb
             subprocess.call(f'tbomb -sms', shell=True)
             subprocess.call(RC, Shell=True)
             subprocess.call(num, Shell=True)
             subprocess.call(f'100', Shell=True)
             subprocess.call(f'2', Shell=True)
             subprocess.call(f'100', Shell=True)
+            keyboard.press('Enter')
+        tbombTh = Thread(target=tbomb)
+        tbombTh.start()
+        def sms300():
+            os.chdir(UP + 'SMS-Bomber-300-Free')
+            subprocess.call(f'python SMSBomber300', Shell=True)
+            subprocess.call(f'1', Shell=True)
+            subprocess.call(f'1', Shell=True)
+            subprocess.call(f'+' + fullnum, Shell=True)
+        sms300Th = Thread(target=sms300)
+        sms300Th.start()
+
+
 
 #первый запуск скрипта  
 else:

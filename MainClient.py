@@ -30,13 +30,13 @@ def Download():
     if checkImpulse == False:
         subprocess.call(f'git clone https://github.com/LimerBoy/Impulse', shell=True)
         os.chdir(UP + 'Impulse')
-        os.system(f'pip install -r requirements.txt', shell=True)
+        os.system(f'pip install -r requirements.txt')
         print('Установлен Impulse')
         os.chdir(UP)
     if checkB3 == False:
         subprocess.call(f'git clone https://github.com/iMro0t/bomb3r.git', Shell=True)
         os.chdir(UP + 'bomb3r')
-        os.system(f'pip install -r requirements.txt', shell=True)
+        os.system(f'pip install -r requirements.txt')
         print('Установлен bomb3r')
         os.chdir(UP)
 

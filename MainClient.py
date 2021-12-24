@@ -25,19 +25,19 @@ def Download():
         subprocess.call(f'git clone https://github.com/AvinashReddy3108/YetAnotherSMSBomber', shell=True)
         print('Установлен YASB(YetAnotherSMSBomber)')
         os.chdir(UP + 'YetAnotherSMSBomber')
-        subprocess.call(f'pip install -r requirements.txt')
+        os.system(f'pip install -r requirements.txt')
         os.chdir(UP)
     if checkImpulse == False:
         subprocess.call(f'git clone https://github.com/LimerBoy/Impulse', shell=True)
         os.chdir(UP + 'Impulse')
-        subprocess.call(f'pip install -r requirements.txt', shell=True)
+        os.system(f'pip install -r requirements.txt', shell=True)
         print('Установлен Impulse')
         os.chdir(UP)
     if checkB3 == False:
         subprocess.call(f'git clone https://github.com/iMro0t/bomb3r.git', Shell=True)
         os.chdir(UP + 'bomb3r')
-        subprocess.call(f'pip install -r requirements.txt', shell=True)
-        print('Установлен Impulse')
+        os.system(f'pip install -r requirements.txt', shell=True)
+        print('Установлен bomb3r')
         os.chdir(UP)
 
  #Функция экрана ввода номера телефона 

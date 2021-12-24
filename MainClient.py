@@ -25,7 +25,7 @@ def Download():
         subprocess.call(f'git clone https://github.com/AvinashReddy3108/YetAnotherSMSBomber', shell=True)
         print('Установлен YASB(YetAnotherSMSBomber)')
         os.chdir(UP + 'YetAnotherSMSBomber')
-        subprocess.call(f'ptp install -r requirements.txt')
+        subprocess.call(f'pip install -r requirements.txt')
         os.chdir(UP)
     if checkImpulse == False:
         subprocess.call(f'git clone https://github.com/LimerBoy/Impulse', shell=True)

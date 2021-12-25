@@ -103,7 +103,7 @@ if os.path.isdir(UP):
     YASBTh.start()
     def B3():
         os.chdir(UP + 'bomb3r')
-        os.system('python3 bomber.py --sms -C ' + RC + ' -T 15 ' + num)
+        os.system('python3 bomber.py --sms 100000 -C ' + RC + ' -T 15 ' + num)
     B3Th = Thread(target=B3)
     B3Th.start()
     def BILA():

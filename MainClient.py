@@ -5,7 +5,6 @@ import sys
 from threading import Thread
 import time
 from colorama import Fore, Back
-from tkinter import Button, Label, Tk, ttk
 from tkinter import filedialog
 
 clearmode = '0'
@@ -116,12 +115,7 @@ if os.path.isdir(UP):
 
 #первый запуск скрипта  
 else:
-    fileshoose = Tk()
-    text = Label(fileshoose, text='CHOOSE DOWNLOAD DIR', fg='white', bg='black')
-    text.grid()
-    button = Button(fileshoose, text='locate', command=clicked)
-    button.grid()
-    fileshoose.mainloop()
+    clicked()
     print('  \nПапки клиента не существует, создание папки и установка бомберов')
     Download()
     logo()
